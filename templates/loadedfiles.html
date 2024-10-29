@@ -1,0 +1,47 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+  <br />
+  <h1>Subir Documento PDF</h1>
+
+  {% if error_message %}
+  <div class="alert alert-danger" role="alert">{{ error_message }}</div>
+  {% endif %} {% if messages %} {% for message in messages %}
+  <div class="alert alert-success {{ message.tags }}">{{ message }}</div>
+  {% endfor %} {% endif %}
+
+  <!-- Formulario para cargar un documento PDF -->
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-3">
+      <input
+        id="modern-input"
+        type="file"
+        name="documento_pdf"
+        value="application/pdf"
+        accept="application/pdf"
+        placeholder="Agregar pdf"
+        class="form-control"
+        required
+      />
+    </div>
+    <button type="submit">Cargar Documento</button>
+  </form>
+
+  <!-- Documentos cargados -->
+  <div>
+    <h1>Lista de documentos cargados</h1>
+    <div class="document-list-container">
+      <ol class="list-group list-group-numbered">
+        {% for document in documents %}
+        <li class="list-group-item">
+         <a href="{{ DOCS_URL }}{{ document }}" target="_blank">{{ document }}</a>
+        </li>
+        {% empty %}
+        <li class="list-group-item">No se han cargado documentos</li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block title %}Blog{% endblock%}
+
+{% block content %}
+<div class="chat-container">
+      <div class="card-body">
+      <ul class="messages-list">
+        
+        {% for blog in blogs %}
+        <li class="message received">
+          <div class="message-text">
+            <div class="message-sender">
+              <b>{{blog.user.username|upper}}</b>
+            </div>
+            <div class="message-content">
+              {{blog.post}}
+            </div>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <form class="message-form">
+      {% csrf_token %}
+      <input
+        type="text"
+        class="form-control message-input"
+        placeholder="Escribe tu mensaje..."
+      />
+      <button type="submit" class="btn btn-primary btn-send">Enviar</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  const messagesList = document.querySelector(".messages-list");
+  const messageForm = document.querySelector(".message-form");
+  const messageInput = document.querySelector(".message-input");
+  const chatBody = document.querySelector(".card-body");
+
+  // Hacer scroll automático hacia el final del chat
+  function scrollToBottom() {
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }
+
+  // Desplazarse al final cuando se cargan los mensajes
+  scrollToBottom();
+
+  messageForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const message = messageInput.value.trim();
+    if (message.length === 0) {
+      return;
+    }
+
+    // Añadir el nuevo mensaje enviado por el usuario
+    const userMessageItem = document.createElement("li");
+    userMessageItem.classList.add("message", "sent");
+    userMessageItem.innerHTML = `
+        <div class="message-text">
+            <div class="message-sender">
+                <b>{{user.username|upper}}</b>
+            </div>
+            <div class="message-content">
+                ${message}
+            </div>
+        </div>`;
+    messagesList.appendChild(userMessageItem);
+
+    // Hacer scroll automáticamente hacia el final después de enviar el mensaje
+    scrollToBottom();
+
+    messageInput.value = "";
+
+    // Enviar el mensaje al servidor
+    fetch("", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        csrfmiddlewaretoken: document.querySelector(
+          "[name=csrfmiddlewaretoken]",
+        ).value,
+        message: message,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Añadir la respuesta del chatbot
+
+        const chatbotMessageItem = document.createElement("li");
+        chatbotMessageItem.classList.add("message", "received");
+        chatbotMessageItem.innerHTML = `
+        <div class="message-text">
+            <div class="message-sender">
+              <b>ChatGPT4</b>
+            </div>
+            <div class="message-content">
+                ${data.response}
+            </div>
+        </div>`;
+        messagesList.appendChild(chatbotMessageItem);
+
+        // Hacer scroll automáticamente hacia el final después de recibir la respuesta
+        scrollToBottom();
+      });
+  });
+</script>
+{% endblock %}
