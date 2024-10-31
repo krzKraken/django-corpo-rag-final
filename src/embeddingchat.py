@@ -17,7 +17,7 @@ from corpo_chatbot.settings import BASE_DIR
 
 # loading dotenv
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.1, max_tokens=800)

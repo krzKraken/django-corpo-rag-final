@@ -19,7 +19,7 @@ from src.extraer_imagenes_pdf import extraer_imagenes_pdf, extraer_texto_de_imag
 load_dotenv()
 # openai api key
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 MEDIA_ROOT = settings.MEDIA_ROOT
 BASE_DIR = settings.BASE_DIR
 
