@@ -17,6 +17,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+DATABASE = os.getenv("DATABASES")
+USER_DB = os.getenv("USER")
+PASSWORD_DB = os.getenv("PASSWORD_DB")
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR_MEDIA = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -88,12 +92,12 @@ WSGI_APPLICATION = "corpo_chatbot.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "chatbotdb",
-        "USER": "kraken",
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": DATABASE,
+        "USER": USER_DB,
+        "PASSWORD": PASSWORD_DB,
         "HOST": "localhost",
-        "PORT": "",
+        "PORT": "5432",
     }
 }
 
