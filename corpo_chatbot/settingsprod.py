@@ -40,7 +40,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["165.277.182.227"]
 
 # X_FRAME_OPTIONS = "SAMEORIGIN"
 
