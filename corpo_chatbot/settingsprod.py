@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DATABASE = os.getenv("DATABASES")
+DATABASE = os.getenv("DATABASE")
 USER_DB = os.getenv("USER")
 PASSWORD_DB = os.getenv("PASSWORD_DB")
 
