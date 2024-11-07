@@ -29,6 +29,8 @@ print("PASSWORD_DB:", PASSWORD_DB)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR_MEDIA = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
 
 # Rutas media
 MEDIA_URL = "/media/"
@@ -40,6 +42,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR_MEDIA, "docs/")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY", "")
+SECURE_SSL_REDIRECT = False
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
