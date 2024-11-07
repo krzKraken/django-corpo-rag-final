@@ -20,6 +20,11 @@ load_dotenv()
 DATABASE = os.getenv("DATABASE")
 USER_DB = os.getenv("USER")
 PASSWORD_DB = os.getenv("PASSWORD_DB")
+print('=============================ENV===================================')
+print("DATABASE:", DATABASE)
+print("USER_DB:", USER_DB)
+print("PASSWORD_DB:", PASSWORD_DB)
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
